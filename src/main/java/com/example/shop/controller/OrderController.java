@@ -17,11 +17,11 @@ import java.util.Map;
 public class OrderController {
     private OrderService orderService;
 
-    @GetMapping()
-    public ResponseEntity<List<Order>> getOrdersByUserSortBy(@RequestParam Map<String,String> allRequestParams) {
-        List<Order> orders = orderService.getOrdersByUserSortBy(allRequestParams);
-        return ResponseEntity.ok(orders);
-    }
+//    @GetMapping()
+//    public ResponseEntity<List<Order>> getOrdersByUserSortBy(@RequestParam Map<String,String> allRequestParams) {
+//        List<Order> orders = orderService.getOrdersByUserSortBy(allRequestParams);
+//        return ResponseEntity.ok(orders);
+//    }
 
     @GetMapping()
     public ResponseEntity<Order> getOrder(@PathVariable Integer orderId) {
