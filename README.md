@@ -22,7 +22,7 @@ Hibernate
 Port: 8080, baza danych: PostgreSQL
 
 ## Features
-* creating, editing products
-* creating baskets, adding products to baskets, deleting products from baskets
-* making orders,
-* creating clients
+* creating, uploading products
+* creating baskets, adding products to basket (if theres is enough quantity in a shop), deleting products from basket, making orders
+* adding and editing products in shop
+* creating, editing clients
