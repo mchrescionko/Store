@@ -6,7 +6,6 @@ import com.example.shop.requests.*;
 import com.example.shop.service.BasketService;
 import com.example.shop.service.StoreService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,40 +18,29 @@ public class BasketController {
     private BasketService basketService;
     private StoreService storeService;
 
-
-//    @PostMapping("{basketId}/products")  //api/baskets/3/products/5
-//    public Basket addProduct (@RequestBody Product product){
-//
-//    }
     @PostMapping
-    public ResponseEntity<Basket> createBasket(@RequestBody CreateBasketRequest createBasketRequest){
+    public ResponseEntity<Basket> createBasket(@RequestBody CreateBasketRequest createBasketRequest) {
         Basket basket = basketService.create(createBasketRequest);
-        return ResponseEntity.created(URI.create("api/baskets/"+basket.getId())).body(basket);
-        //dlaczego mogę utworzyc wiele koszykow dla jednego usera, skoro ustawilem relacje OneToOne
+        return ResponseEntity.created(URI.create("api/baskets/" + basket.getId())).body(basket);
     }
-
-    //update
-    //PATCH //baskets/1
-    // mapa <Inteeger,Inteeger>
-
 
     @PatchMapping("/{basketId}/products")
     public ResponseEntity<Basket> addProductToBasket(@RequestBody AddProductToBasketRequest addProductToBasketRequest, @PathVariable Integer basketId) {
         Basket basket;
         try {
             basket = basketService.addProductToBasket(addProductToBasketRequest, basketId);
-        }catch (MyResourceNotFoundException e){
+        } catch (MyResourceNotFoundException e) {
             return ResponseEntity.notFound().header("reason", e.getMessage()).build();
         }
         return ResponseEntity.ok().body(basket);
     }
 
     @GetMapping("/{basketId}")
-    public ResponseEntity<Basket> getBasket(@PathVariable Integer basketId){
+    public ResponseEntity<Basket> getBasket(@PathVariable Integer basketId) {
         Basket basket;
-        try{
+        try {
             basket = basketService.getBasket(basketId);
-        }catch(MyResourceNotFoundException e){
+        } catch (MyResourceNotFoundException e) {
             return ResponseEntity.notFound().header("Reason", e.getMessage()).build();
         }
         return ResponseEntity.ok().body(basket);
@@ -60,10 +48,10 @@ public class BasketController {
     }
 
     @DeleteMapping("/{basketId}")
-    public ResponseEntity<String> removeBasket(@PathVariable Integer basketId){
-        try{
+    public ResponseEntity<String> removeBasket(@PathVariable Integer basketId) {
+        try {
             basketService.removeBasket(basketId);
-        }catch(MyResourceNotFoundException e){
+        } catch (MyResourceNotFoundException e) {
             return ResponseEntity.notFound().header("Reason", e.getMessage()).build();
         }
         return ResponseEntity.noContent().build();
@@ -72,9 +60,9 @@ public class BasketController {
     @DeleteMapping("/{basketId}/products/{productId}")
     public ResponseEntity<Basket> removeProductFromBasket(@RequestBody RemoveProductFromBasketRequest removeProductFromBasketRequest, @PathVariable Integer basketId, @PathVariable Integer productId) {
         Basket basket;
-        try{
-            basket = basketService.removeProductFromBasket(removeProductFromBasketRequest,basketId,productId);
-        }catch(MyResourceNotFoundException e){
+        try {
+            basket = basketService.removeProductFromBasket(removeProductFromBasketRequest, basketId, productId);
+        } catch (MyResourceNotFoundException e) {
             return ResponseEntity.notFound().header("Reason", e.getMessage()).build();
         }
         return ResponseEntity.ok(basket);
@@ -85,19 +73,9 @@ public class BasketController {
         Basket basket;
         try {
             basket = basketService.upload(uploadBasketRequest, basketId);
-        }catch (MyResourceNotFoundException e){
+        } catch (MyResourceNotFoundException e) {
             return ResponseEntity.notFound().header("Reason", e.getMessage()).build();
         }
         return ResponseEntity.ok(basket);
     }
-
-
-
-
-    //products/1   (update/create)
-    //products/1?category=book&minPrice=100   (get - filtered)
-    //products     (create)
-
-
-
 }

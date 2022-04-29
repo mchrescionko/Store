@@ -6,6 +6,7 @@ import com.example.shop.model.Store;
 import com.example.shop.repository.StoreRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +16,14 @@ public class StoreService {
     private StoreRepository storeRepository;
     private ProductService productService;
 
-    public Store getStore(){
-        if(doesStoreExist()){
+    public Store getStore() {
+        if (doesStoreExist()) {
             return storeRepository.findAll().get(0);
         }
         throw new MyResourceNotFoundException("Store doesn't exist (storage is empty)!");
     }
 
-    public Store createStorage(){
+    public Store createStorage() {
         Product product1 = productService.getProductById(1);
         Product product2 = productService.getProductById(2);
         Map<Product, Integer> products = new HashMap<>();
@@ -36,17 +37,17 @@ public class StoreService {
         return store;
     }
 
-    public boolean doesStoreExist(){
+    public boolean doesStoreExist() {
         return !storeRepository.findAll().isEmpty();
     }
 
-    public void addProducts(Product product, Integer quantity){
+    public void addProducts(Product product, Integer quantity) {
         Store store = getStore();
-        if(store.getStorage().containsKey(product)){
+        if (store.getStorage().containsKey(product)) {
             int previousQuantity = store.getStorage().get(product);
-            store.getStorage().put(product, previousQuantity+quantity);
-        }else{
-            store.getStorage().put(product,quantity);
+            store.getStorage().put(product, previousQuantity + quantity);
+        } else {
+            store.getStorage().put(product, quantity);
         }
     }
 }

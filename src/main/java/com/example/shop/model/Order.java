@@ -1,6 +1,7 @@
 package com.example.shop.model;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class Order {
     private User user;
     private Integer price;
 
-    public void applyDiscount(){
+    public void applyDiscount() {
         price = 0;
         for (Map.Entry<Product, Integer> productIntegerEntry : products.entrySet()) {
             price = price + productIntegerEntry.getKey().getPrice() * productIntegerEntry.getValue() * discount;

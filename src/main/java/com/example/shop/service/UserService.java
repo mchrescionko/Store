@@ -5,8 +5,6 @@ import com.example.shop.model.User;
 import com.example.shop.repository.UserRepository;
 import com.example.shop.requests.UserRequest;
 import lombok.AllArgsConstructor;
-import lombok.Generated;
-import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private UserRepository userRepository;
 
-    public User createUser(UserRequest userRequest){
+    public User createUser(UserRequest userRequest) {
         User user = User.builder()
                 .firstName(userRequest.getFirstname())
                 .lastName(userRequest.getLastname())
@@ -25,8 +23,7 @@ public class UserService {
         return user;
     }
 
-    public User getUser(Integer userId){
-        return userRepository.findById(userId).orElseThrow(()->new MyResourceNotFoundException("There isn't a user with such id"));
+    public User getUser(Integer userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new MyResourceNotFoundException("There isn't a user with such id"));
     }
-
 }

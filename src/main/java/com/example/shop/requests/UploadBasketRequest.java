@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class UploadBasketRequest {
-     Integer discount;
-     Integer userId;
+    Integer discount;
+    Integer userId;
 }

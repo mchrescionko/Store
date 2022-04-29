@@ -2,6 +2,7 @@ package com.example.shop.model;
 
 import lombok.Builder;
 import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class Product {
     private String picture;
     private String details;
     @ElementCollection
-    private Map<String,String> parameters;
+    private Map<String, String> parameters;
     private Double rating;
 
     public Product() {
@@ -33,8 +34,4 @@ public class Product {
         this.parameters = parameters;
         this.rating = rating;
     }
-
-    /*getDiscountedPrice(){
-        return discount.apply(price);
-    }*/
 }

@@ -6,6 +6,7 @@ import com.example.shop.repository.BasketRepository;
 import com.example.shop.requests.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,14 +42,14 @@ public class BasketService {
         Store store = storeService.getStore();
         Product product = productService.getProductById(addProductToBasketRequest.getProductId());
         store.removeProduct(product, addProductToBasketRequest.getQuantity());
-        Basket basket = basketRepository.findById(basketId).orElseThrow(()->new MyResourceNotFoundException("The basket with such id doesn't exist!"));
+        Basket basket = basketRepository.findById(basketId).orElseThrow(() -> new MyResourceNotFoundException("The basket with such id doesn't exist!"));
         basket.addProduct(product, addProductToBasketRequest.getQuantity());
         basketRepository.save(basket);
         return basket;
     }
 
     public Basket removeProductFromBasket(RemoveProductFromBasketRequest removeProductFromBasketRequest, Integer basketId, Integer productId) {
-        Basket basket = basketRepository.findById(basketId).orElseThrow(()->new MyResourceNotFoundException("The basket with such id doesn't exist!"));
+        Basket basket = basketRepository.findById(basketId).orElseThrow(() -> new MyResourceNotFoundException("The basket with such id doesn't exist!"));
         Product product = productService.getProductById(productId);
         basket.removeProduct(product, removeProductFromBasketRequest.getQuantity());
         storeService.addProducts(product, removeProductFromBasketRequest.getQuantity());
@@ -57,15 +58,15 @@ public class BasketService {
     }
 
     public Basket getBasket(Integer basketId) {
-        return basketRepository.findById(basketId).orElseThrow(()->new MyResourceNotFoundException("There isn't a basket with such id"));
+        return basketRepository.findById(basketId).orElseThrow(() -> new MyResourceNotFoundException("There isn't a basket with such id"));
     }
 
     public Basket upload(UploadBasketRequest uploadBasketRequest, Integer basketId) {
-        Basket basket = basketRepository.findById(basketId).orElseThrow(()->new MyResourceNotFoundException("There isn't a basket with such id"));
+        Basket basket = basketRepository.findById(basketId).orElseThrow(() -> new MyResourceNotFoundException("There isn't a basket with such id"));
         if (uploadBasketRequest.getDiscount() != null) {
             basket.setDiscount(uploadBasketRequest.getDiscount());
         }
-        if(uploadBasketRequest.getUserId()!=null){
+        if (uploadBasketRequest.getUserId() != null) {
             basket.setUser(userService.getUser(uploadBasketRequest.getUserId()));
         }
         basketRepository.save(basket);

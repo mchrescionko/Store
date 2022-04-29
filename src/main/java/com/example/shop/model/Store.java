@@ -2,6 +2,7 @@ package com.example.shop.model;
 
 import com.example.shop.exceptions.MyResourceNotFoundException;
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.Map;
 
@@ -20,11 +21,11 @@ public class Store {
     @ElementCollection(fetch = FetchType.EAGER)
     private Map<Product, Integer> availableProducts = storage;
 
-    public void removeProduct(Product product, Integer quantity){
+    public void removeProduct(Product product, Integer quantity) {
         Integer previousQuantity = availableProducts.get(product);
-        if(previousQuantity==null||previousQuantity<quantity){
+        if (previousQuantity == null || previousQuantity < quantity) {
             throw new MyResourceNotFoundException("There is not enough product in the basket.");
         }
-        availableProducts.put(product,previousQuantity-quantity);
+        availableProducts.put(product, previousQuantity - quantity);
     }
 }

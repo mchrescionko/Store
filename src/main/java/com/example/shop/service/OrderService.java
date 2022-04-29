@@ -7,6 +7,7 @@ import com.example.shop.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class OrderService {
         return order;
     }
 
-    public Order getOrder(Integer orderId){
-        return orderRepository.findById(orderId).orElseThrow(()->new MyResourceNotFoundException("There isn't a user with such id"));
+    public Order getOrder(Integer orderId) {
+        return orderRepository.findById(orderId).orElseThrow(() -> new MyResourceNotFoundException("There isn't a user with such id"));
     }
 }

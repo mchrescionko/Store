@@ -2,6 +2,7 @@ package com.example.shop.model;
 
 import com.example.shop.exceptions.MyResourceNotFoundException;
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.Map;
 
